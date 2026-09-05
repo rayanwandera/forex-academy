@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Reading Two Timeframes at Once — Pip & Ledger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --ink: #0B1220;
+  --ink-soft: #0F1830;
+  --surface: #121B2E;
+  --line: #24314F;
+  --text: #EDEFF4;
+  --text-dim: #9AA5BD;
+  --gold: #E8B84B;
+  --gain: #3DDC84;
+  --loss: #FF5C5C;
+  --font-display: 'Space Grotesk', 'Inter', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --radius: 10px;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { background: var(--ink); color: var(--text); font-family: var(--font-body); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; line-height: 1.2; color: var(--text); }
+p { color: var(--text-dim); margin: 0 0 1.1em 0; }
+a { color: var(--gold); }
+.mono { font-family: var(--font-mono); }
+.container { max-width: 760px; margin: 0 auto; padding: 0 1.5rem; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem; }
+.badge { display: inline-flex; align-items: center; font-family: var(--font-mono); font-size: .75rem; letter-spacing: .02em; padding: .3em .7em; border-radius: 100px; border: 1px solid var(--line); color: var(--text-dim); }
+nav.top { border-bottom: 1px solid var(--line); }
+nav.top .row { display:flex; align-items:center; justify-content:space-between; height:72px; max-width:760px; margin:0 auto; padding:0 1.5rem; }
+.brand { font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; color: var(--text); text-decoration:none; }
+.brand span { color: var(--gold); }
+.hero { padding: 3rem 0 1.5rem; }
+.hero .badge { margin-bottom: 1rem; }
+.hero h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin: 0 0 .6rem; }
+.hero .meta { color: var(--text-dim); font-size: .9rem; font-family: var(--font-mono); }
+article { padding: 1rem 0 4rem; }
+article h2 { font-size: 1.3rem; margin-top: 2.4rem; margin-bottom: .7rem; display:flex; align-items:center; gap:.6em; }
+article h2 .step-num { font-family: var(--font-mono); font-size: .75rem; color: var(--gold); border:1px solid var(--line); border-radius:100px; padding:.2em .6em; }
+ul, ol { color: var(--text-dim); padding-left: 1.2em; }
+li { margin-bottom: .5em; }
+.callout { background: var(--ink-soft); border: 1px solid var(--line); border-left: 3px solid var(--gold); border-radius: var(--radius); padding: 1rem 1.2rem; margin: 1.2rem 0; }
+.callout p { margin: 0; color: var(--text); font-size: .95rem; }
+.risk-box { background: rgba(255,92,92,0.08); border: 1px solid rgba(255,92,92,0.35); border-radius: var(--radius); padding: 1.2rem 1.4rem; margin: 2.5rem 0 1rem; }
+.risk-box h3 { color: var(--loss); font-size: 1rem; margin: 0 0 .5rem; }
+.risk-box p { color: var(--text); font-size: .9rem; margin: 0; }
+.checklist { list-style: none; padding: 0; }
+.checklist li { display:flex; gap: .6em; align-items:flex-start; }
+.checklist li::before { content: '—'; color: var(--gold); flex-shrink:0; }
+</style>
+</head>
+<body>
+
+<nav class="top"><div class="row">
+  <a class="brand" href="#"><span>Pip</span>&amp;Ledger</a>
+  <span class="badge">STANDALONE ARTICLE</span>
+</div></nav>
+
+<div class="container">
+  <div class="hero">
+    <span class="badge">TRADING CONCEPTS</span>
+    <h1>Reading Two Timeframes at Once: A Beginner's Guide to Multi-Timeframe Analysis</h1>
+    <div class="meta">~7 min read · Educational content, not a signal or a guarantee</div>
+  </div>
+
+  <article>
+    <p>
+      One of the most common mistakes newer traders make is staring at a single chart and trying to
+      make every decision from it — where the trend is, where to enter, where to exit. A single
+      timeframe can only tell part of the story. Professional and experienced traders routinely zoom
+      out to understand the bigger picture, then zoom in to time their actual entry. This is called
+      multi-timeframe analysis, and it's less about a magic formula and more about not fighting the
+      bigger trend while you look for a precise moment to act.
+    </p>
+
+    <div class="callout">
+      <p>
+        <strong>The core idea:</strong> use a higher timeframe (like the 15-minute chart) to understand
+        direction and context, then a lower timeframe (like the 3-minute chart) to fine-tune exactly
+        when you enter. You're reading the same market at two different zoom levels.
+      </p>
+    </div>
+
+    <h2><span class="step-num">01</span> Start with the bigger picture</h2>
+    <p>
+      Before looking for any entry, pull up a higher timeframe — 15 minutes is a common choice for
+      short-term traders, though the exact number matters less than the habit itself. On this chart,
+      you're asking two questions: what is the overall trend doing (higher highs and higher lows for
+      an uptrend, the reverse for a downtrend), and are there clear levels — previous swing highs,
+      swing lows, or zones where price has reacted before — that the market keeps respecting? Mark
+      only the levels that have genuinely mattered more than once; a chart cluttered with lines is
+      often a sign of forcing a pattern that isn't really there.
+    </p>
+
+    <h2><span class="step-num">02</span> Drop down for precision</h2>
+    <p>
+      Once you have context, switch to a shorter timeframe — 3 minutes is a common pairing with a
+      15-minute view, though again the specific numbers are less important than the relationship
+      between them (roughly a 5:1 ratio is a reasonable starting point). Here you're watching for
+      signs that momentum is shifting as price reaches one of the levels you marked earlier: a candle
+      that reverses sharply, a failed attempt to push to a new high or low, or a small structural
+      break. The lower timeframe doesn't replace the higher one — it's where you look for
+      confirmation that the pause or reversal you expected is actually starting to happen.
+    </p>
+
+    <h2><span class="step-num">03</span> Wait for confirmation, not anticipation</h2>
+    <p>
+      It's tempting to enter as soon as price approaches a level you marked, on the assumption that it
+      will reverse there. This is a common way traders lose money — the level is a place where a
+      reaction is more likely, not a guarantee one will happen. Waiting for an actual reversal signal
+      on the lower timeframe, rather than acting on anticipation alone, trades a small amount of
+      "missing the exact bottom or top" for a meaningfully lower rate of being wrong entirely.
+    </p>
+
+    <h2><span class="step-num">04</span> Keep losses small and defined</h2>
+    <p>
+      Every trade needs a predetermined point where you accept you were wrong and exit — a stop-loss.
+      A reasonable approach is placing it just beyond the level that originally caught your attention,
+      with enough room to allow for ordinary price noise but not so much room that a single loss
+      erodes a large share of your account. Many traders aim for a reward at least 1.5 to 2 times
+      larger than their risk on any given trade, though this ratio is a guideline to adapt, not a
+      rule that guarantees profitability on its own.
+    </p>
+
+    <h2><span class="step-num">05</span> Take profit before the crowd does</h2>
+    <p>
+      Rather than trying to hold a position for the entire length of a move, many short-term traders
+      aim to capture the cleaner middle portion of it, exiting before the next major level where a lot
+      of other participants are also likely to be reacting — and where price action tends to get
+      messier and less predictable as a result.
+    </p>
+
+    <h2><span class="step-num">06</span> Position sizing: the part people skip</h2>
+    <p>
+      A strategy can have a good idea behind it and still lose money if position sizing is random.
+      A simple approach: decide what percentage of your account you're willing to risk on any single
+      trade — many beginners use 0.5–1% — and then size your position so that if your stop-loss is
+      hit, you lose exactly that percentage, no more. This means your position size should actually
+      shrink when your stop-loss is further away, and grow when it's tighter, so your dollar risk per
+      trade stays consistent no matter how wide or narrow the setup is.
+    </p>
+    <p>
+      As a rough formula: <span class="mono">position size ≈ (account risk in currency) ÷ (stop-loss distance × value per pip)</span>.
+      The exact numbers will depend on your broker and account currency, but the principle — fixed
+      risk per trade, regardless of setup — is what keeps one bad trade from being a disaster.
+    </p>
+
+    <h2><span class="step-num">07</span> Time and news matter</h2>
+    <p>
+      Markets aren't equally active all day. Short-term strategies that rely on clean, directional
+      moves tend to work better during higher-liquidity hours, and many traders choose to sit out
+      entirely around major scheduled news events — interest rate decisions, inflation data, and
+      similar releases — since these can cause sudden, unpredictable volatility that has little to do
+      with the technical picture you were reading a moment earlier.
+    </p>
+
+    <ul class="checklist">
+      <li>Higher timeframe: trend direction and key levels marked</li>
+      <li>Lower timeframe: price has reached a marked level and shows a reversal signal</li>
+      <li>Entry only after confirmation, not anticipation</li>
+      <li>Stop-loss placed at a logical, predetermined point</li>
+      <li>Position size calculated from your fixed risk percentage, not guessed</li>
+      <li>Reward-to-risk ratio checked before entering, not after</li>
+      <li>No major scheduled news event in the next hour</li>
+    </ul>
+
+    <div class="risk-box">
+      <h3>A note on risk</h3>
+      <p>
+        No trading approach — including anything described here — removes the real possibility of
+        losing money, and past patterns in a chart don't guarantee future results. This page is
+        general education on how multi-timeframe analysis works conceptually, not a signal, a
+        guaranteed method, or personalized advice. If a version of this idea is ever sold to you with
+        promises of guaranteed returns or a "can't lose" indicator, treat that the same way this
+        site's own scam-awareness lesson recommends: as a red flag, not a shortcut.
+      </p>
+    </div>
+  </article>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Forex Trading Basics — From Zero to Your First MT5 Trade | Pip & Ledger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --ink: #0B1220; --ink-soft: #0F1830; --surface: #121B2E; --line: #24314F;
+  --text: #EDEFF4; --text-dim: #9AA5BD; --gold: #E8B84B; --gold-dim:#B98F32;
+  --gain: #3DDC84; --loss: #FF5C5C;
+  --font-display: 'Space Grotesk', 'Inter', sans-serif;
+  --font-body: 'Inter', sans-serif; --font-mono: 'IBM Plex Mono', monospace; --radius: 10px;
+}
+* { box-sizing: border-box; }
+html,body{margin:0;padding:0;scroll-behavior:smooth;}
+body{background:var(--ink);color:var(--text);font-family:var(--font-body);line-height:1.65;-webkit-font-smoothing:antialiased;}
+h1,h2,h3{font-family:var(--font-display);font-weight:600;color:var(--text);}
+p{color:var(--text-dim);}
+a{color:var(--gold);}
+.mono{font-family:var(--font-mono);}
+.container{max-width:820px;margin:0 auto;padding:0 1.5rem;}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:1.4rem 1.6rem;}
+.badge{display:inline-flex;align-items:center;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.03em;padding:.3em .7em;border-radius:100px;border:1px solid var(--line);color:var(--text-dim);}
+nav.top{position:sticky;top:0;background:rgba(11,18,32,0.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:10;}
+nav.top .row{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:820px;margin:0 auto;padding:0 1.5rem;}
+.brand{font-family:var(--font-display);font-weight:700;font-size:1.05rem;text-decoration:none;color:var(--text);}
+.brand span{color:var(--gold);}
+.hero{padding:3rem 0 1.5rem;}
+.hero h1{font-size:clamp(1.7rem,4vw,2.4rem);margin:.6rem 0;}
+.metaRow{display:flex;gap:14px;flex-wrap:wrap;margin:1rem 0;}
+.metaRow .badge{font-size:.7rem;}
+.risk{background:rgba(255,92,92,0.08);border:1px solid rgba(255,92,92,0.35);border-radius:var(--radius);padding:1rem 1.2rem;margin-top:1.2rem;}
+.risk p{color:var(--text);font-size:.9rem;margin:0;}
+.toc{margin:2rem 0;}
+.toc .card{padding:1.2rem;}
+.toc ul{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:.5rem;}
+.toc a{font-size:.85rem;display:block;padding:.4em .6em;border-radius:8px;}
+.toc a:hover{background:var(--ink-soft);text-decoration:none;}
+section.module{padding:2.5rem 0;border-top:1px solid var(--line);}
+.modnum{font-family:var(--font-mono);color:var(--gold);font-size:.8rem;border:1px solid var(--line);border-radius:100px;padding:.2em .7em;display:inline-block;margin-bottom:.6rem;}
+section.module h2{font-size:1.5rem;margin:0 0 .3rem;}
+.sub{font-size:1.05rem;margin-top:1.4rem;color:var(--text);}
+pre.ascii{background:var(--ink-soft);border:1px solid var(--line);border-radius:var(--radius);padding:1rem 1.2rem;overflow-x:auto;font-family:var(--font-mono);font-size:.82rem;color:var(--gold);line-height:1.5;}
+.learned{background:var(--ink-soft);border-left:3px solid var(--gold);border-radius:var(--radius);padding:1rem 1.3rem;margin-top:1.4rem;}
+.learned h4{margin:0 0 .5rem;font-size:.9rem;color:var(--gold);font-family:var(--font-mono);letter-spacing:.03em;}
+.learned ul{margin:0;padding-left:1.1em;color:var(--text-dim);font-size:.9rem;}
+table{width:100%;border-collapse:collapse;margin-top:1rem;}
+th,td{padding:.6em .8em;border-bottom:1px solid var(--line);text-align:left;font-size:.85rem;}
+th{font-family:var(--font-mono);font-size:.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.03em;}
+.checklist{list-style:none;padding:0;columns:2;column-gap:1.5rem;}
+.checklist li{margin-bottom:.5em;font-size:.88rem;color:var(--text-dim);break-inside:avoid;}
+.checklist li::before{content:'☐ ';color:var(--gold);}
+.golden{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:1rem 1.3rem;margin-bottom:.8rem;}
+.golden strong{color:var(--gold);font-family:var(--font-mono);font-size:.75rem;}
+
+/* Quiz game */
+#quiz-section{padding:3rem 0 5rem;border-top:2px solid var(--gold);}
+.quiz-shell{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:1.8rem;}
+.quiz-progress{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.4rem;flex-wrap:wrap;gap:10px;}
+.quiz-progress .stat{font-family:var(--font-mono);font-size:.85rem;color:var(--text-dim);}
+.quiz-progress .stat b{color:var(--gold);font-size:1.1rem;}
+.progress-bar{height:6px;background:var(--ink-soft);border-radius:100px;overflow:hidden;margin-bottom:1.6rem;}
+.progress-fill{height:100%;background:var(--gold);width:0%;transition:width .3s ease;}
+#quiz-question{font-size:1.15rem;margin-bottom:1.2rem;color:var(--text);}
+.quiz-options{display:flex;flex-direction:column;gap:10px;}
+.quiz-opt{text-align:left;background:var(--ink-soft);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:.9em 1.1em;cursor:pointer;font-family:var(--font-body);font-size:.95rem;transition:transform .1s ease, background .15s ease, border-color .15s ease;}
+.quiz-opt:hover:not(:disabled){border-color:var(--gold);}
+.quiz-opt:disabled{cursor:default;}
+.quiz-opt.correct{background:rgba(61,220,132,0.15);border-color:var(--gain);color:var(--gain);}
+.quiz-opt.wrong{background:rgba(255,92,92,0.15);border-color:var(--loss);color:var(--loss);animation:flashred .4s ease;}
+@keyframes flashred{0%,100%{box-shadow:none;}50%{box-shadow:0 0 0 4px rgba(255,92,92,0.35);}}
+.feedback{margin-top:1.2rem;font-family:var(--font-mono);font-size:.9rem;padding:.8em 1em;border-radius:10px;display:none;}
+.feedback.show{display:block;}
+.feedback.pass{background:rgba(61,220,132,0.1);color:var(--gain);border:1px solid rgba(61,220,132,0.35);}
+.feedback.fail{background:rgba(255,92,92,0.1);color:var(--loss);border:1px solid rgba(255,92,92,0.35);}
+.quiz-next{margin-top:1.4rem;display:none;}
+.quiz-next.show{display:inline-flex;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;padding:.8em 1.5em;border-radius:10px;border:1px solid transparent;font-weight:600;cursor:pointer;font-family:var(--font-body);font-size:.95rem;}
+.btn-primary{background:var(--gold);color:#1A1305;}
+.btn-ghost{background:transparent;border-color:var(--line);color:var(--text);}
+#quiz-results{display:none;text-align:center;}
+#quiz-results.show{display:block;}
+.score-circle{width:140px;height:140px;border-radius:50%;border:6px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:1.5rem auto;font-family:var(--font-mono);font-size:1.8rem;color:var(--gold);flex-direction:column;}
+.score-circle small{font-size:.7rem;color:var(--text-dim);}
+#quiz-verdict{font-size:1.3rem;margin-bottom:.3rem;}
+#start-quiz-screen{text-align:center;padding:2rem 0;}
+.hidden{display:none;}
+footer{padding:3rem 0;text-align:center;color:var(--text-dim);font-size:.85rem;}
+</style>
+</head>
+<body>
+
+<nav class="top"><div class="row">
+  <a class="brand" href="#top"><span>Pip</span>&amp;Ledger</a>
+  <span class="badge">FOREX TRADING BASICS</span>
+</div></nav>
+
+<div class="container" id="top">
+  <div class="hero">
+    <span class="badge">BEGINNER · MT5 · ~3–5 HOURS</span>
+    <h1>Forex Trading Basics: From Zero to Your First MT5 Trade</h1>
+    <p>A complete beginner mini-course. No prior knowledge needed — you'll start with "what is Forex?" and build up to reading a full trade setup with entry, Stop Loss and Take Profit.</p>
+    <div class="metaRow">
+      <span class="badge">Level: Beginner</span>
+      <span class="badge">Platform: MetaTrader 5</span>
+      <span class="badge">Prerequisite: None</span>
+    </div>
+    <div class="risk">
+      <p><strong>This course is education, not financial advice.</strong> Forex trading involves substantial risk — you can lose some or all of the money you deposit, and leverage can magnify losses as well as gains. There are no guaranteed profits. Practice on a demo account before risking real money, and never trade money you can't afford to lose.</p>
+    </div>
+  </div>
+
+  <div class="toc">
+    <div class="card">
+      <h3 style="font-size:1rem;margin-bottom:.8rem;">Course contents</h3>
+      <ul>
+        <li><a href="#m1">Module 1 — What Is Forex?</a></li>
+        <li><a href="#m2">Module 2 — Pips</a></li>
+        <li><a href="#m3">Module 3 — Bid, Ask &amp; Spread</a></li>
+        <li><a href="#m4">Module 4 — Forex Brokers</a></li>
+        <li><a href="#m5">Module 5 — Leverage</a></li>
+        <li><a href="#m6">Module 6 — Lot Sizes</a></li>
+        <li><a href="#m7">Module 7 — Margin, Equity &amp; Balance</a></li>
+        <li><a href="#m8">Module 8 — Connecting to MT5</a></li>
+        <li><a href="#m9">Module 9 — The MT5 Interface</a></li>
+        <li><a href="#m10">Module 10 — Types of Orders</a></li>
+        <li><a href="#m11">Module 11 — Stop Loss</a></li>
+        <li><a href="#m12">Module 12 — Take Profit</a></li>
+        <li><a href="#m13">Module 13 — Break-Even</a></li>
+        <li><a href="#m14">Module 14 — Your First Complete Trade</a></li>
+        <li><a href="#m15">Module 15 — Common Beginner Mistakes</a></li>
+        <li><a href="#m16">Module 16 — Beginner Checklist &amp; Golden Rules</a></li>
+        <li><a href="#quiz-section">🎮 Final Quiz — play it</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- MODULE 1 -->
+  <section class="module" id="m1">
+    <span class="modnum">MODULE 01</span>
+    <h2>What Is Forex?</h2>
+    <p><strong>Forex</strong> is short for Foreign Exchange — the market where currencies are exchanged. Imagine someone traveling from Uganda to the US exchanging Ugandan Shillings for US Dollars. In Forex trading, traders speculate on changes in the value of one currency relative to another.</p>
+
+    <h3 class="sub">Currency pairs</h3>
+    <p>Currencies are quoted in pairs, e.g. <span class="mono">EUR/USD</span>. The first currency (EUR) is the <strong>base currency</strong>; the second (USD) is the <strong>quote currency</strong>.</p>
+    <pre class="ascii">        EUR / USD
+         │    │
+         │    └── Quote Currency (US Dollar)
+         │
+         └─────── Base Currency (Euro)</pre>
+
+    <h3 class="sub">What EUR/USD = 1.1000 means</h3>
+    <p>Conceptually, 1 Euro = 1.10 US Dollars. If price rises from 1.1000 → 1.1050, the Euro has strengthened relative to the Dollar over that move. If it falls to 1.0950, the Euro has weakened.</p>
+
+    <h3 class="sub">Buying vs selling a pair</h3>
+    <p><strong>Buy EUR/USD</strong> — you're generally expecting the price to rise (entry 1.1000 → price rises to 1.1050). <strong>Sell EUR/USD</strong> — you're generally expecting the price to fall (entry 1.1000 → price falls to 1.0950). The actual result depends on execution price and trading costs.</p>
+
+    <h3 class="sub">Major, minor and exotic pairs</h3>
+    <p><strong>Majors</strong> are heavily traded and usually include USD: EUR/USD, GBP/USD, USD/JPY, USD/CHF, AUD/USD, USD/CAD, NZD/USD. <strong>Minors</strong> involve major currencies but exclude USD: EUR/GBP, EUR/JPY, GBP/JPY. <strong>Exotics</strong> pair a major currency with a smaller/emerging-market currency — often wider spreads and lower liquidity.</p>
+
+    <div class="learned">
+      <h4>WHAT YOU LEARNED</h4>
+      <ul>
+        <li>Forex means Foreign Exchange, and currencies trade in pairs.</li>
+        <li>The first currency is the base; the second is the quote.</li>
+        <li>Buying generally expects the price to rise; selling expects it to fall.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- MODULE 2 -->
+  <section class="module" id="m2">
+    <span class="modnum">MODULE 02</span>
+    <h2>Pips</h2>
+    <p>A <strong>pip</strong> is a standard unit of price movement. For most non-JPY pairs it's commonly the fourth decimal place: 1.1000 → 1.1001 is 1 pip. A move from 1.1000 to 1.1010 is 10 pips.</p>
+    <pre class="ascii">1.1010 ──────── ▲
+                │ 10 pips
+1.1000 ──────── ▼</pre>
+    <p><strong>JPY pairs</strong> are commonly quoted to two decimals, e.g. USD/JPY 150.00 → 150.01 is usually 1 pip. Always check the symbol's quotation and your broker's contract specs.</p>
+    <h3 class="sub">Pips and profit/loss</h3>
+    <p>A pip has no single universal cash value — it depends on the currency pair, position size, account currency, exchange rate and contract specs. <strong>10 pips does not automatically mean $10.</strong> Some platforms also show an extra decimal called a "point," representing a fractional pip.</p>
+    <div class="learned">
+      <h4>WHAT YOU LEARNED</h4>
+      <ul>
+        <li>A pip measures price movement — usually the 4th decimal (2nd for JPY pairs).</li>
+        <li>Pip value depends on position size and other factors, not a fixed number.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- MODULE 3 -->
+  <section class="module" id="m3">
+    <span class="modnum">MODULE 03</span>
+    <h2>Bid, Ask and Spread</h2>
+    <p>The <strong>Bid</strong> is generally the price the market buys your position from you (Sell → Bid). The <strong>Ask</strong> is generally the price you buy at (Buy → Ask). The difference between them is the <strong>spread</strong> — a trading cost.</p>
+    <pre class="ascii">ASK / BUY   1.1002
+               ↑ SPREAD (2 pips)
+BID / SELL  1.1000</pre>
+    <p>Because you buy at Ask but your position is valued against Bid, a fresh trade can initially show a small unrealized loss roughly equal to the spread, before commissions or price movement. This is normal — it applies to both Buy and Sell positions.</p>
+    <div class="learned">
+      <h4>WHAT YOU LEARNED</h4>
+      <ul>
+        <li>Buys generally execute at Ask; Sells generally execute at Bid.</li>
+        <li>The Bid-Ask difference is the spread, a real cost of trading.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- MODULE 4 -->
+  <section class="module" id="m4">
+    <span class="modnum">MODULE 04</span>
+    <h2>Forex Brokers</h2>
+    <p>A broker provides the trading account and infrastructure you place trades through — deposits/withdrawals, pricing, execution, MT5 access, support, and account types.</p>
+    <h3 class="sub">Demo vs live</h3>
+    <p><strong>Demo</strong> uses simulated funds — great for learning MT5, practicing orders, and testing your process. <strong>Live</strong> uses real money, where mistakes have real consequences.</p>
+    <pre class="ascii">LEARN → PRACTICE → DEMO ACCOUNT → BUILD UNDERSTANDING → ONLY THEN CONSIDER LIVE</pre>
+    <h3 class="sub">What to check before choosing a broker</h3>
+    <p>Regulation by a credible authority, trading costs (spread, commission, overnight swaps), execution quality during volatile markets, account requirements (minimum deposit, position size), and whether MT5 is supported. A broker is a service provider — not a guarantee of profitable trading, no matter what someone online claims.</p>
+    <div class="learned">
+      <h4>WHAT YOU LEARNED</h4>
+      <ul>
+        <li>Demo accounts simulate money; live accounts carry real financial risk.</li>
+        <li>Regulation and costs matter — research a broker before depositing.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- MODULE 5 -->
+  <section class="module" id="m5">
+    <span class="modnum">MODULE 05</span>
+    <h2>Leverage</h2>
+    <p>Leverage lets a trader control a larger position with a smaller amount of margin — financial amplification. 1:100 leverage means $1 of margin can conceptually provide exposure to up to $100 of position value, subject to broker rules.</p>
+    <p>A $100 account with 1:100 leverage has a theoretical maximum exposure far larger than the balance — but that does <strong>not</strong> mean you should use the maximum. That's one of the most common beginner mistakes.</p>
+    <h3 class="sub">Leverage ≠ risk</h3>
+    <p>This is critical: your actual risk comes from position size, Stop Loss distance, entry price, instrument, volatility, account size and trading costs — not the leverage ratio alone. A trader can have 1:500 leverage and still choose a small, low-risk position. Available leverage is not a target.</p>
+    <div class="learned">
+      <h4>WHAT YOU LEARNED</h4>
+      <ul>
+        <li>Leverage increases potential exposure relative to margin required.</li>
+        <li>Higher leverage doesn't mean higher profit — it magnifies both directions.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- MODULE 6 -->
+  <section class="module" id="m6">
+    <span class="modnum">MODULE 06</span>
+    <h2>Lot Sizes</h2>
+    <p>A <strong>lot</strong> describes position size:</p>
+    <table>
+      <tr><th>Lot size</th><th>Common name</th></tr>
+      <tr><td class="mono">1.00</td><td>Standard lot</td></tr>
+      <tr><td class="mono">0.10</td><td>Mini lot</td></tr>
+      <tr><td class="mono">0.01</td><td>Micro lot</td></tr>
+      <tr><td class="mono">0.001</td><td>Nano lot (where supported)</td></tr>
+    </table>
+    <p style="margin-top:1rem;">Terminology and minimums vary by broker. The key concept: <strong>larger position size = larger monetary effect from the same price movement.</strong> If two traders take the same pip move but one uses 0.01 lot and the other 0.10 lot, the larger position sees a larger dollar swing. Never assume "one pip always equals $10" — pip value depends on position size, pair, account currency and current rates.</p>
+    <div class="learned">
+      <h4>WHAT YOU LEARNED</h4>
+      <ul>
+        <li>1.00 = standard, 0.10 = mini, 0.01 = micro lot.</li>
+        <li>Bigger lots amplify both gains and losses for the same price move.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- MODULE 7 -->
+  <section class="module" id="m7">
+    <span class="modnum">MODULE 07</span>
+    <h2>Margin, Equity and Balance</h2>
+    <p><strong>Balance</strong> = account value from closed trades only. <strong>Equity</strong> = balance adjusted for unrealized profit/loss on open trades. <strong>Margin</strong> = funds set aside to support an open leveraged position (not simply "money lost").</p>
+    <p><span class="mono">Free Margin ≈ Equity − Used Margin</span> &nbsp;·&nbsp; <span class="mono">Margin Level ≈ Equity / Used Margin × 100%</span></p>
+    <p>If losses reduce equity too far relative to used margin, a broker may issue a <strong>margin call</strong>, and a <strong>stop-out</strong> can automatically close positions when margin requirements aren't met. Exact thresholds vary by broker.</p>
+    <div class="learned">
+      <h4>WHAT YOU LEARNED</h4>
+      <ul>
+        <li>Equity = Balance ± unrealized open-trade result.</li>
+        <li>Running out of free margin can trigger a forced close-out.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- MODULE 8 -->
+  <section class="module" id="m8">
+    <span class="modnum">MODULE 08</span>
+    <h2>Connecting Your Account to MT5</h2>
+    <p><strong>MetaTrader 5 (MT5)</strong> is the trading platform you'll use to view markets, open charts, place orders, and manage positions.</p>
+    <ol style="color:var(--text-dim);">
+      <li>Create a trading account (demo or live) with your researched broker.</li>
+      <li>Install MT5 from an official source or your broker's version.</li>
+      <li>Open the login screen inside MT5.</li>
+      <li>Select the correct server (e.g. <span class="mono">BrokerName-Demo</span> vs <span class="mono">BrokerName-Live</span>) — this matters.</li>
+      <li>Enter your login number, password and server. Never share your password.</li>
+      <li>Verify the connection — account info appears, prices update, Market Watch is active.</li>
+      <li>Open Market Watch to see available instruments (EURUSD, GBPUSD, USDJPY, XAUUSD, etc.)</li>
+      <li>Open a chart for your chosen pair.</li>
+    </ol>
+    <p>MT5 looks slightly different across Windows, macOS, Android and iOS — menu names and layouts can vary.</p>
+    <div class="learned">
+      <h4>WHAT YOU LEARNED</h4>
+      <ul>
+        <li>The correct server selection matters as much as your login details.</li>
+        <li>Never share your MT5 password with anyone.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- MODULE 9 -->
+  <section class="module" id="m9">
+    <span class="modnum">MODULE 09</span>
+    <h2>Understanding the MT5 Interface</h2>
+    <p><strong>Market Watch</strong> — instruments and current prices. <strong>Navigator</strong> — accounts, indicators, Expert Advisors, scripts. <strong>Charts</strong> — price movement; change symbol, timeframe, chart type, indicators. <strong>Toolbox/Terminal</strong> — open positions, orders, history, alerts. <strong>Trade tab</strong> — position, volume, symbol, price, SL, TP, profit. <strong>History</strong> — completed trading activity.</p>
+    <div class="learned">
+      <h4>WHAT YOU LEARNED</h4>
+      <ul>
+        <li>You now know the purpose of Market Watch, Navigator, Charts, Trade tab and History.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- MODULE 10 -->
+  <section class="module" id="m10">
+    <span class="modnum">MODULE 10</span>
+    <h2>Types of Orders</h2>
+    <p>Two broad categories: <strong>market orders</strong> (execute now) and <strong>pending orders</strong> (execute later, if triggered).</p>
+    <table>
+      <tr><th>Order</th><th>General location</th><th>Basic idea</th></tr>
+      <tr><td>Buy Market</td><td>Current price</td><td>Buy now</td></tr>
+      <tr><td>Sell Market</td><td>Current price</td><td>Sell now</td></tr>
+      <tr><td>Buy Limit</td><td>Below current price</td><td>Buy lower</td></tr>
+      <tr><td>Sell Limit</td><td>Above current price</td><td>Sell higher</td></tr>
+      <tr><td>Buy Stop</td><td>Above current price</td><td>Buy after upward trigger</td></tr>
+      <tr><td>Sell Stop</td><td>Below current price</td><td>Sell after downward trigger</td></tr>
+    </table>
+    <p style="margin-top:1rem;"><strong>Memory trick:</strong> LIMIT = expect a better price / retracement. STOP = enter after price reaches a trigger.</p>
+    <div class="learned">
+      <h4>WHAT YOU LEARNED</h4>
+      <ul>
+        <li>Six core order types: Buy, Sell, Buy/Sell Limit, Buy/Sell Stop.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- MODULE 11 -->
+  <section class="module" id="m11">
+    <span class="modnum">MODULE 11</span>
+    <h2>Stop Loss</h2>
+    <p>A <strong>Stop Loss (SL)</strong> closes a position when price hits a specified level, to help control potential loss. For a Buy, SL is generally below entry; for a Sell, generally above entry.</p>
+    <p>Stop Loss doesn't guarantee exact execution — during extreme volatility, gaps or low liquidity, actual execution can differ from the requested level (<strong>slippage</strong>). It's a risk-management tool, not a guaranteed loss amount.</p>
+    <p><strong>Never move your Stop Loss farther away just because price is approaching it</strong> — if your original trade idea is invalidated, doing this can increase your risk substantially instead of protecting you.</p>
+    <div class="learned">
+      <h4>WHAT YOU LEARNED</h4>
+      <ul>
+        <li>Buy SL below entry, Sell SL above entry.</li>
+        <li>Moving SL farther away to avoid a loss usually makes things worse.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- MODULE 12 -->
+  <section class="module" id="m12">
+    <span class="modnum">MODULE 12</span>
+    <h2>Take Profit</h2>
+    <p>A <strong>Take Profit (TP)</strong> closes a position when a target price is reached, automatically realizing a planned profit.</p>
+    <table>
+      <tr><th>Feature</th><th>Stop Loss</th><th>Take Profit</th></tr>
+      <tr><td>Main purpose</td><td>Limit potential loss</td><td>Target potential profit</td></tr>
+      <tr><td>Buy position</td><td>Usually below entry</td><td>Usually above entry</td></tr>
+      <tr><td>Sell position</td><td>Usually above entry</td><td>Usually below entry</td></tr>
+    </table>
+    <div class="learned">
+      <h4>WHAT YOU LEARNED</h4>
+      <ul><li>SL manages downside; TP defines a target — both can auto-close a trade.</li></ul>
+    </div>
+  </section>
+
+  <!-- MODULE 13 -->
+  <section class="module" id="m13">
+    <span class="modnum">MODULE 13</span>
+    <h2>Break-Even</h2>
+    <p>Moving a Stop Loss to <strong>break-even</strong> means shifting it toward your entry price so the trade no longer carries its original planned downside — often used to protect an open trade once it's moved favorably.</p>
+    <p><strong>The danger of moving too early:</strong> price can retrace just enough to close the trade at break-even, then continue in your original direction anyway. Moving to break-even is a trade-management decision, not automatically the "safe" choice. Also note: with spread and commission included, closing exactly at your entry price may not equal exactly $0 net.</p>
+    <div class="learned">
+      <h4>WHAT YOU LEARNED</h4>
+      <ul><li>Break-even reduces downside exposure but can prematurely close a trade that would have worked.</li></ul>
+    </div>
+  </section>
+
+  <!-- MODULE 14 -->
+  <section class="module" id="m14">
+    <span class="modnum">MODULE 14</span>
+    <h2>Your First Complete MT5 Trade</h2>
+    <p>Purely educational example — not a recommendation to buy EUR/USD.</p>
+    <table>
+      <tr><td>Account Balance</td><td class="mono">$100</td></tr>
+      <tr><td>Pair</td><td class="mono">EUR/USD</td></tr>
+      <tr><td>Direction</td><td class="mono">BUY</td></tr>
+      <tr><td>Position Size</td><td class="mono">0.01 lot</td></tr>
+      <tr><td>Entry</td><td class="mono">1.1000</td></tr>
+      <tr><td>Stop Loss</td><td class="mono">1.0980 (20 pips)</td></tr>
+      <tr><td>Take Profit</td><td class="mono">1.1040 (40 pips)</td></tr>
+    </table>
+    <pre class="ascii" style="margin-top:1rem;">        TAKE PROFIT  1.1040
+                ▲  (40 pips)
+        BUY ENTRY    1.1000
+                ▼  (20 pips)
+        STOP LOSS    1.0980</pre>
+    <p style="margin-top:1rem;"><strong>The core risk lesson:</strong> a $100 account does not mean "I should risk $100." Your balance and your risk-per-trade are different concepts. Ask "how much can I afford to lose if I'm wrong?" before asking "how much can I make?"</p>
+    <div class="learned">
+      <h4>WHAT YOU LEARNED</h4>
+      <ul><li>How a real entry/SL/TP setup fits together, and why account size ≠ risk size.</li></ul>
+    </div>
+  </section>
+
+  <!-- MODULE 15 -->
+  <section class="module" id="m15">
+    <span class="modnum">MODULE 15</span>
+    <h2>Common Beginner Mistakes</h2>
+    <ol style="color:var(--text-dim);">
+      <li><strong>Using too much leverage</strong> — understand position size and risk before opening a trade.</li>
+      <li><strong>Oversized lots</strong> — too large for the account makes normal moves damaging.</li>
+      <li><strong>No Stop Loss</strong> — "the market will come back" is a hope, not a plan.</li>
+      <li><strong>Risking too much on one trade</strong> — one trade shouldn't decide your account's survival.</li>
+      <li><strong>Revenge trading</strong> — trying to "win back" a loss with an oversized new position.</li>
+      <li><strong>Overtrading</strong> — more trades ≠ more profit.</li>
+      <li><strong>Trading money you can't afford to lose</strong> — never risk essential living expenses.</li>
+      <li><strong>Not understanding order types</strong> before clicking them.</li>
+      <li><strong>Confusing balance and equity.</strong></li>
+      <li><strong>Moving Stop Loss farther away</strong> as price approaches it.</li>
+      <li><strong>Going live too quickly</strong> — learn MT5 on a demo account first.</li>
+    </ol>
+  </section>
+
+  <!-- MODULE 16 -->
+  <section class="module" id="m16">
+    <span class="modnum">MODULE 16</span>
+    <h2>Beginner Checklist &amp; Golden Rules</h2>
+    <ul class="checklist">
+      <li>I understand what Forex means</li>
+      <li>I understand currency pairs</li>
+      <li>I understand base and quote currencies</li>
+      <li>I understand pips</li>
+      <li>I understand Bid and Ask</li>
+      <li>I understand spread</li>
+      <li>I understand what a broker does</li>
+      <li>I understand demo vs live accounts</li>
+      <li>I understand leverage</li>
+      <li>I understand lot sizes</li>
+      <li>I understand margin, balance, equity</li>
+      <li>I know how to connect and navigate MT5</li>
+      <li>I understand Buy/Sell and pending order types</li>
+      <li>I understand Stop Loss, Take Profit and Break-Even</li>
+      <li>I understand basic trading risk</li>
+    </ul>
+
+    <h3 class="sub">The Beginner's Golden Rules</h3>
+    <div class="golden"><strong>RULE 1</strong> — Understand before you trade.</div>
+    <div class="golden"><strong>RULE 2</strong> — Practice before risking real money.</div>
+    <div class="golden"><strong>RULE 3</strong> — Leverage is not free money.</div>
+    <div class="golden"><strong>RULE 4</strong> — Bigger lots mean bigger monetary exposure.</div>
+    <div class="golden"><strong>RULE 5</strong> — Always know where your risk is.</div>
+    <div class="golden"><strong>RULE 6</strong> — Never trade because someone promised guaranteed profits.</div>
+    <div class="golden"><strong>RULE 7</strong> — One trade should never be allowed to destroy your account.</div>
+    <div class="golden"><strong>RULE 8</strong> — Protect your trading capital before thinking about making money.</div>
+
+    <p style="margin-top:1.5rem;">This is the foundation: Forex → currency pairs → pips → Bid/Ask → spread → broker → leverage → lot size → margin → MT5 → orders → Stop Loss → Take Profit → break-even → risk management. You don't need to master everything in one day — the next stage is reading charts, market structure, and building a repeatable trading plan. But master the basics first.</p>
+  </section>
+
+  <!-- QUIZ GAME -->
+  <section id="quiz-section">
+    <div class="card" style="text-align:center;margin-bottom:1.5rem;background:transparent;border:none;">
+      <span class="badge">🎮 FINAL QUIZ</span>
+      <h2 style="margin-top:.6rem;">Test what you've learned</h2>
+      <p>20 questions from the course. Answer with the buttons — you'll see instantly whether you passed or failed each one, plus your running score.</p>
+    </div>
+
+    <div class="quiz-shell">
+      <div id="start-quiz-screen">
+        <p style="color:var(--text);font-size:1rem;">Ready when you are. Score 14/20 (70%) or higher to pass.</p>
+        <button class="btn btn-primary" onclick="startQuiz()">Start the quiz</button>
+      </div>
+
+      <div id="quiz-play" class="hidden">
+        <div class="quiz-progress">
+          <span class="stat">Question <b id="q-current">1</b>/<span id="q-total">20</span></span>
+          <span class="stat">Passed so far: <b id="q-passed">0</b>/<span id="q-attempted">0</span></span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+        <div id="quiz-question"></div>
+        <div class="quiz-options" id="quiz-options"></div>
+        <div class="feedback" id="quiz-feedback"></div>
+        <button class="btn btn-primary quiz-next" id="next-btn" onclick="nextQuestion()">Next question →</button>
+      </div>
+
+      <div id="quiz-results">
+        <div id="quiz-verdict"></div>
+        <div class="score-circle">
+          <span id="final-score">0/20</span>
+          <small id="final-pct">0%</small>
+        </div>
+        <p id="results-message" style="color:var(--text-dim);"></p>
+        <button class="btn btn-primary" onclick="startQuiz()">Retry the quiz</button>
+        <a class="btn btn-ghost" href="#top">Back to top</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p><strong>Final disclaimer:</strong> This course is provided for educational purposes only and does not constitute financial, investment, or trading advice. Forex and leveraged trading involve substantial risk — you may lose some or all of the capital you trade. No strategy can guarantee profits. Before trading live, understand your broker's terms, fees, leverage limits, execution policies and regulatory status, and only use money you can afford to lose.</p>
+  </footer>
+</div>
+
+<script>
+const QUESTIONS = [
+  {q:"What does Forex mean?", opts:["Foreign Exchange","Foreign Expansion","Financial Exchange Rate"], correct:0},
+  {q:"In EUR/USD, what is EUR?", opts:["Quote currency","Base currency","Broker currency"], correct:1},
+  {q:"What does a pip generally measure?", opts:["Account balance","Price movement","Broker commission"], correct:1},
+  {q:"EUR/USD moves from 1.1000 to 1.1010. Approximately how many pips is that?", opts:["1","10","100"], correct:1},
+  {q:"Which price is generally associated with opening a Buy?", opts:["Bid","Ask","Balance"], correct:1},
+  {q:"What is the spread?", opts:["Difference between Bid and Ask","Difference between balance and equity","Trading leverage"], correct:0},
+  {q:"What does a Forex broker provide?", opts:["Guaranteed profits","Trading services and access to a trading environment","Guaranteed winning signals"], correct:1},
+  {q:"What is leverage?", opts:["A guarantee of profit","A mechanism that can increase market exposure relative to required margin","A type of currency"], correct:1},
+  {q:"Does higher leverage automatically mean lower risk?", opts:["Yes","No"], correct:1},
+  {q:"Which position is larger?", opts:["0.01 lot","0.10 lot"], correct:1},
+  {q:"What does Stop Loss primarily help with?", opts:["Managing potential loss","Guaranteeing profit","Increasing leverage"], correct:0},
+  {q:"For a Buy position, where is a traditional Stop Loss generally placed?", opts:["Below entry","Above entry"], correct:0},
+  {q:"For a Sell position, where is a traditional Take Profit generally placed?", opts:["Above entry","Below entry"], correct:1},
+  {q:"What is a Buy Limit generally used for?", opts:["Buying at a specified lower price than the current market","Selling above the current market","Closing every trade automatically"], correct:0},
+  {q:"Where is a Buy Stop generally placed?", opts:["Below current market price","Above current market price"], correct:1},
+  {q:"What is equity?", opts:["Balance plus/minus unrealized open-trade results","Broker password","Spread only"], correct:0},
+  {q:"What is break-even management?", opts:["Moving a Stop Loss toward entry to reduce downside exposure","Increasing leverage","Opening another trade"], correct:0},
+  {q:"Why can moving Stop Loss to break-even too early be problematic?", opts:["The market may retrace and close the trade before continuing","It always guarantees a loss","It increases your lot size"], correct:0},
+  {q:"What should a beginner generally use to practice MT5?", opts:["Demo account","Borrowed money","Maximum leverage"], correct:0},
+  {q:"Is Forex trading guaranteed income?", opts:["Yes","No"], correct:1},
+];
+
+let currentQ = 0, passed = 0, attempted = 0, answered = false;
+
+function startQuiz(){
+  currentQ = 0; passed = 0; attempted = 0;
+  document.getElementById('start-quiz-screen').classList.add('hidden');
+  document.getElementById('quiz-results').classList.remove('show');
+  document.getElementById('quiz-play').classList.remove('hidden');
+  document.getElementById('q-total').textContent = QUESTIONS.length;
+  renderQuestion();
+}
+
+function renderQuestion(){
+  answered = false;
+  const item = QUESTIONS[currentQ];
+  document.getElementById('q-current').textContent = currentQ + 1;
+  document.getElementById('q-passed').textContent = passed;
+  document.getElementById('q-attempted').textContent = attempted;
+  document.getElementById('progress-fill').style.width = ((currentQ) / QUESTIONS.length * 100) + '%';
+  document.getElementById('quiz-question').textContent = item.q;
+  const optsWrap = document.getElementById('quiz-options');
+  optsWrap.innerHTML = '';
+  item.opts.forEach((optText, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-opt';
+    btn.textContent = optText;
+    btn.onclick = () => selectAnswer(idx, btn);
+    optsWrap.appendChild(btn);
+  });
+  const fb = document.getElementById('quiz-feedback');
+  fb.className = 'feedback';
+  fb.textContent = '';
+  document.getElementById('next-btn').classList.remove('show');
+}
+
+function selectAnswer(idx, btnEl){
+  if (answered) return;
+  answered = true;
+  attempted++;
+  const item = QUESTIONS[currentQ];
+  const allBtns = document.querySelectorAll('.quiz-opt');
+  allBtns.forEach(b => b.disabled = true);
+
+  const fb = document.getElementById('quiz-feedback');
+  if (idx === item.correct){
+    passed++;
+    btnEl.classList.add('correct');
+    fb.className = 'feedback show pass';
+    fb.textContent = '✓ PASS — correct answer.';
+  } else {
+    btnEl.classList.add('wrong');
+    allBtns[item.correct].classList.add('correct');
+    fb.className = 'feedback show fail';
+    fb.textContent = '✕ FAIL — the correct answer is highlighted above.';
+  }
+  document.getElementById('q-passed').textContent = passed;
+  document.getElementById('q-attempted').textContent = attempted;
+  document.getElementById('next-btn').classList.add('show');
+  document.getElementById('next-btn').textContent = (currentQ === QUESTIONS.length - 1) ? 'See final score →' : 'Next question →';
+}
+
+function nextQuestion(){
+  currentQ++;
+  if (currentQ >= QUESTIONS.length){
+    showResults();
+  } else {
+    renderQuestion();
+  }
+}
+
+function showResults(){
+  document.getElementById('quiz-play').classList.add('hidden');
+  document.getElementById('quiz-results').classList.add('show');
+  const pct = Math.round((passed / QUESTIONS.length) * 100);
+  document.getElementById('final-score').textContent = passed + '/' + QUESTIONS.length;
+  document.getElementById('final-pct').textContent = pct + '%';
+  const verdict = document.getElementById('quiz-verdict');
+  const msg = document.getElementById('results-message');
+  if (pct >= 70){
+    verdict.innerHTML = '<span style="color:var(--gain)">🎉 You passed!</span>';
+    msg.textContent = "Solid grasp of the basics. Review any module you're unsure of, then move on to reading charts and building a trading plan.";
+  } else {
+    verdict.innerHTML = '<span style="color:var(--loss)">Not quite — try again</span>';
+    msg.textContent = "You need 70% (14/20) to pass. Re-read the modules above, then hit retry — there's no limit on attempts.";
+  }
+}
+</script>
+</body>
+</html>
